@@ -6,7 +6,7 @@ test/
 test/unit/coverage
 test/e2e/reports
 selenium-debug.log
-*.woff
-*.woff2
-*.ttf
-*.eot
+client/**/*.woff
+client/**/*.woff2
+client/**/*.ttf
+client/**/*.eot

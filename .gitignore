@@ -1,0 +1,12 @@
+.DS_Store
+node_modules/
+dist/
+npm-debug.log
+test/
+test/unit/coverage
+test/e2e/reports
+selenium-debug.log
+*.woff
+*.woff2
+*.ttf
+*.eot

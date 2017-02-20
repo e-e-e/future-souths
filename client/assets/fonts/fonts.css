@@ -1,0 +1,33 @@
+@font-face {
+	font-family: 'National';
+  src: url('NationalWeb-Regular.eot'); /* IE9 Compat Modes */
+  src: url('NationalWeb-Regular.eot?#iefix') format('embedded-opentype'),
+       url('NationalWeb-Regular.woff2') format('woff2'),
+       url('NationalWeb-Regular.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'National';
+  src: url('NationalWeb-RegularItalic.eot'); /* IE9 Compat Modes */
+  src: url('NationalWeb-RegularItalic.eot?#iefix') format('embedded-opentype'),
+       url('NationalWeb-RegularItalic.woff2') format('woff2'),
+       url('NationalWeb-RegularItalic.woff') format('woff');
+  font-style: italic;
+}
+
+@font-face {
+	font-family: 'TiemposText';
+  src: url('TiemposTextWeb-Medium.eot'); /* IE9 Compat Modes */
+  src: url('TiemposTextWeb-Medium.eot?#iefix') format('embedded-opentype'),
+       url('TiemposTextWeb-Medium.woff2') format('woff2'),
+       url('TiemposTextWeb-Medium.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'TiemposText';
+  src: url('TiemposTextWeb-MediumItalic.eot'); /* IE9 Compat Modes */
+  src: url('TiemposTextWeb-MediumItalic.eot?#iefix') format('embedded-opentype'),
+       url('TiemposTextWeb-MediumItalic.woff2') format('woff2'),
+       url('TiemposTextWeb-MediumItalic.woff') format('woff');
+  font-style: italic;
+}

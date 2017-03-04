@@ -10,7 +10,10 @@ const htmlSerializer = () => {
   return (element, content) => {
     // Don't wrap images in a <p> tag
     if (element.type === 'image') {
-      return `<img src="${element.url}" alt="${element.alt}">`;
+      const { width, height } = element.dimensions;
+      if (!width) return '';
+      const ratio = (height / width) * 100;
+      return `<img src="${element.url}" alt="${element.alt}" style="height:${ratio.toFixed(0)}%">`;
     }
     // Add a class to hyperlinks
     if (element.type === 'hyperlink') {

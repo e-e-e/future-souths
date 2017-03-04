@@ -10,3 +10,7 @@ client/**/*.woff
 client/**/*.woff2
 client/**/*.ttf
 client/**/*.eot
+
+*.svg
+
+*.otf

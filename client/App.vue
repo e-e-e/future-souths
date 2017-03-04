@@ -4,10 +4,10 @@
     <div class="contentsWrapper">
       <header>
         <div class="column left">
-          <h1>Future Souths</h1>
+          <h1>Future</br>Souths</h1>
         </div>
         <div class="column right">
-          <h2>Energies of the (Expanding) Global South</h2>
+          <h2>Energies of</br>the (Expanding)</br>Global South</h2>
           <nav>
             <a href="#">Freenode</a>
             <a href="#">Contact</a>

@@ -9,7 +9,6 @@ const htmlSerializer = () => {
   let footnoteIndex = 0;
   return (element, content) => {
     // Don't wrap images in a <p> tag
-    console.log(element);
     if (element.type === 'image') {
       return `<img src="${element.url}" alt="${element.alt}">`;
     }

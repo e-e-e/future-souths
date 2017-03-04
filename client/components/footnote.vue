@@ -30,7 +30,6 @@ export default {
     },
   },
   beforeUpdate() {
-    console.log('BEFORE UPDATE FOOTNOTE', this.relativeTo);
     const el = document.getElementById(this.relativeTo);
     if (el) {
       const rect = el.getBoundingClientRect();

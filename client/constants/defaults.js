@@ -1,9 +1,13 @@
 
 export const INITIAL_STATE = { // eslint-disable-line
   loading: false,
-  data: {},
-  articles: [],
-  info: [],
+  data: null,
+  dialogues: [],
+  contributors: [],
+  about: null,
+  footer: null,
+  schedule: null,
+  live: null,
   error: null,
 };
 

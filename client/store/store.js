@@ -3,9 +3,54 @@ import Vuex from 'vuex';
 import prismic from 'prismic.io';
 
 import { INITIAL_STATE, PRISMIC_ENDPOINT, PRISMIC_DEFAULT_OPTIONS } from 'constants/defaults';
-import { processArticles, processInfoSections } from 'lib/utils';
+import { processDialogues, processContributors, processFooter, processAbout, processLiveDialogues, processSchedule } from 'lib/utils';
 
 Vue.use(Vuex);
+
+const queries = [
+  {
+    name: 'about',
+    action: 'setAbout',
+    query: prismic.Predicates.at('document.type', 'about'),
+    opts: {},
+    transform: processAbout,
+  },
+  {
+    name: 'footer',
+    action: 'setFooter',
+    query: prismic.Predicates.at('document.type', 'footer'),
+    opts: {},
+    transform: processFooter,
+  },
+  {
+    name: 'schedule',
+    action: 'setSchedule',
+    query: prismic.Predicates.at('document.type', 'schedule'),
+    opts: {},
+    transform: processSchedule,
+  },
+  {
+    name: 'liveDialogues',
+    action: 'setLiveDialogues',
+    query: prismic.Predicates.at('document.type', 'live-discussions'),
+    opts: {},
+    transform: processLiveDialogues,
+  },
+  {
+    name: 'dialogues',
+    action: 'setDialogues',
+    query: prismic.Predicates.at('document.type', 'dialogue'),
+    opts: {},
+    transform: processDialogues,
+  },
+  {
+    name: 'contributors',
+    action: 'setContributors',
+    query: prismic.Predicates.at('document.type', 'contributor'),
+    opts: {},
+    transform: processContributors,
+  },
+];
 
 const store = new Vuex.Store({
   state: INITIAL_STATE,
@@ -16,11 +61,23 @@ const store = new Vuex.Store({
     setData: (state, payload) => {
       state.data = payload;
     },
-    setArticles: (state, payload) => {
-      state.articles = payload;
+    setDialogues: (state, payload) => {
+      state.dialogues = payload;
     },
-    setInfo: (state, payload) => {
-      state.info = payload;
+    setAbout: (state, payload) => {
+      state.about = payload;
+    },
+    setFooter: (state, payload) => {
+      state.footer = payload;
+    },
+    setContributors: (state, payload) => {
+      state.contributors = payload;
+    },
+    setSchedule: (state, payload) => {
+      state.schedule = payload;
+    },
+    setLiveDialogues: (state, payload) => {
+      state.live = payload;
     },
     setError: (state, payload) => {
       state.error = payload;
@@ -31,20 +88,16 @@ const store = new Vuex.Store({
       commit('setLoading', true);
       prismic.api(PRISMIC_ENDPOINT)
         .then(api =>
-          Promise.all([
-            api.query(
-              prismic.Predicates.at('document.type', 'information'),
-              PRISMIC_DEFAULT_OPTIONS,
-            ),
-            api.query(
-              prismic.Predicates.at('document.type', 'article'),
-              PRISMIC_DEFAULT_OPTIONS,
-            ),
-          ])
+          Promise.all(queries.map(q => api.query(q.query, {
+            ...PRISMIC_DEFAULT_OPTIONS,
+            ...q.opts,
+          })))
         )
-        .then((result) => {
-          commit('setInfo', processInfoSections(result[0]));
-          commit('setArticles', processArticles(result[1]));
+        .then((results) => {
+          results.forEach((result, index) => {
+            const meta = queries[index];
+            commit(meta.action, meta.transform(result));
+          });
           commit('setLoading', false);
         })
         .catch((error) => {

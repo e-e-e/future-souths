@@ -1,10 +1,22 @@
 <template>
-  <section>
+  <section class="dialogue">
+    <div class="displayDate">
+      <div class="marginalia">{{time(article.time)}}</div>
+      <div>{{date(article.time)}}</div>
+    </div>
+
     <h1>{{article.title}}</h1>
-    <h2 class="marginalia">author<br>date</h2>
-    <div v-if="!focus" v-html="article.summary" />
-    <div v-if="focus" :class="[styles.body, 'article-body']" v-html="article.body" />
-    <footnote v-if="focus" v-for="(footnote, index) in article.footnotes"
+    <div class="marginalia-block">
+      <h2 class="top">{{article.author}}</h2>
+    </div>
+    <h2 class="marginalia black">
+      <span v-for="participant in article.participants">{{participant}}<br></span>
+    </h2>
+    <div :class="[styles.body, 'article-body']" v-html="article.image"/>
+    <div v-if="article.caption" v-html="article.caption" class="caption" />
+    <a v-if="!focus" v-on:click="setFocused(index)">Continue Reading...</a>
+    <div v-show="focus" :class="[styles.body, 'article-body']" v-html="article.blurb" />
+    <footnote v-show="focus" v-for="(footnote, index) in article.footnotes"
       :key="index"
       :index="index"
       :show="footnote.show"
@@ -15,6 +27,8 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
+import { time, dateHeader } from 'lib/utils';
 import footnote from 'components/footnote';
 
 export default {
@@ -31,13 +45,17 @@ export default {
       type: Boolean,
       default: false,
     },
+    index: {
+      type: Number,
+      required: true,
+    },
   },
   mounted() {
-    console.log('mounted!');
     this.footnotes = this.$el.getElementsByClassName('footnote');
-
+    console.log(this.footnotes);
     for (let i = 0; i < this.footnotes.length; i++) {
       const el = this.footnotes[i];
+      // this is a hacky violation of state
       this.article.footnotes[i].relativeTo = el.id;
       el.addEventListener('mouseover', this.revealFootnote(i));
     }
@@ -54,8 +72,12 @@ export default {
     };
   },
   methods: {
+    ...mapMutations(['setFocused']),
+    time,
+    date: t => `Dialogue: ${dateHeader(t)}`,
     revealFootnote(index) {
       return () => {
+        console.log(index);
         this.article.footnotes.map((f, i) => {
           f.show = (i === index);
           return f;
@@ -71,6 +93,7 @@ export default {
     img {
       display: block;
       width: 100%;
+      height: auto;
     }
   }
 </style>
@@ -94,15 +117,22 @@ export default {
     position: relative;
   }
 
+  .black {
+    color: black;
+  }
+
+  .displayDate {
+    text-transform: uppercase;
+  }
+
   div.caption {
     font-weight: normal;
-    display: block;
-    position: absolute;
-    left: -$margin-width;
-    width: $margin-width - 1;
-    overflow: visible;
     font-size: 0.8rem;
-    transform: translateY(-100%);
+    padding: 0.5rem 0;
+    font-style: italic;
+    em {
+      font-style: normal;
+    }
   }
 
 </style>

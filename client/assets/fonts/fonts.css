@@ -12,6 +12,7 @@
   src: url('NationalWeb-Regular.eot?#iefix') format('embedded-opentype'),
        url('NationalWeb-Regular.woff2') format('woff2'),
        url('NationalWeb-Regular.woff') format('woff');
+  font-style: normal;
 }
 
 @font-face {
@@ -29,6 +30,7 @@
   src: url('TiemposTextWeb-Medium.eot?#iefix') format('embedded-opentype'),
        url('TiemposTextWeb-Medium.woff2') format('woff2'),
        url('TiemposTextWeb-Medium.woff') format('woff');
+  font-style: normal;
 }
 
 @font-face {

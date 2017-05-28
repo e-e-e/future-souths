@@ -5,7 +5,7 @@
         <transition name="fade">
         <header>
           <div class="column left">
-            <h1 style="color: white">Future Souths</h1>
+            <h1 style="color: white">Future<br>Souths</h1>
           </div>
         </header>
         </transition>

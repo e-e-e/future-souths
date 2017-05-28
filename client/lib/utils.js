@@ -1,11 +1,29 @@
 // import _ from 'lodash';
 
+const months = ['January', 'February', 'March', 'April', 'June', 'July', 'August', 'September', 'November', 'December'];
+
+export const date = (t) => {
+  if (!t) return '';
+  return `${t.getDate()} ${months[t.getMonth()]} ${t.getFullYear()}`;
+};
+
+export const dateHeader = (t) => {
+  if (!t) return '';
+  return `${months[t.getMonth()]} ${t.getDate()}, ${t.getFullYear()}`;
+};
+
+export const time = (t) => {
+  if (!t) return '';
+  const minutes = t.getMinutes();
+  return `${t.getHours() + 1}:${minutes}${minutes < 10 ? '0' : ''}`;
+};
+
 function linkResolver(doc) {
   if (doc.type === 'dialogue') return `/${doc.uid}`;
   return '/';
 }
 
-const htmlSerializer = () => {
+const htmlSerializer = (elementId) => {
   let footnoteIndex = 0;
   return (element, content) => {
     // Don't wrap images in a <p> tag
@@ -24,7 +42,7 @@ const htmlSerializer = () => {
         .reduce((p, v, i) => {
           if (i === 0) return v;
           footnoteIndex += 1;
-          return `${p}<span id="footnote-${footnoteIndex}" class="footnote">${footnoteIndex}</span>${v}`;
+          return `${p}<span id="footnote-${footnoteIndex}-${elementId || 'n'}" class="footnote">${footnoteIndex}</span>${v}`;
         }, '');
       if (element.text[0] === '>') {
         return `<div class="caption">${processed.replace('&gt;', '')}</div>`;
@@ -39,27 +57,35 @@ const htmlSerializer = () => {
 export function processDialogues(dialogues) {
   if (!dialogues) return [];
   if (!Array.isArray(dialogues.results)) return [];
-  const rendered = dialogues.results.map((dialogue) => {
+  const rendered = dialogues.results.map((dialogue, dialogueId) => {
     const author = dialogue.getStructuredText('dialogue.author');
     const participantsGroup = dialogue.getGroup('dialogue.participants');
     const title = dialogue.getStructuredText('dialogue.title');
-    const time = dialogue.getTimestamp('dialogue.time');
+    const dialogueTime = dialogue.getTimestamp('dialogue.time');
     const blurb = dialogue.getStructuredText('dialogue.blurb');
     const image = dialogue.getImage('dialogue.feature-image');
     const caption = dialogue.getStructuredText('dialogue.feature-image-caption');
+    const footnotes = dialogue.getGroup('dialogue.footnotes');
     return {
       title: title ? title.asText() : 'Untitled',
       author: author ? author.asText() : 'Anonymous',
-      time: new Date(time),
-      participants: participantsGroup.toArray()
+      time: new Date(dialogueTime),
+      footnotes: footnotes ? footnotes.toArray()
+        .map(footnote => ({
+          content: footnote.getStructuredText('footnote').asHtml(),
+          relativeTo: undefined,
+          show: false,
+        }))
+        .filter(p => !!p) : [],
+      participants: participantsGroup ? participantsGroup.toArray()
         .map((el) => {
           const p = el.getStructuredText('participant');
           return p ? p.asText() : null;
         })
-        .filter(p => !!p),
+        .filter(p => !!p) : [],
       image: image ? image.asHtml(linkResolver, htmlSerializer()) : null,
-      caption: caption ? caption.asHtml(linkResolver, htmlSerializer()) : '',
-      blurb: blurb ? blurb.asHtml(linkResolver, htmlSerializer()) : '',
+      caption: caption ? caption.asHtml(linkResolver) : '',
+      blurb: blurb ? blurb.asHtml(linkResolver, htmlSerializer(dialogueId)) : '',
     };
   });
   return rendered;
@@ -72,8 +98,8 @@ export function processContributors(contributors) {
     const name = contributor.getStructuredText('contributor.name');
     const biography = contributor.getStructuredText('contributor.biography');
     return {
-      name: name ? name.asText(linkResolver, htmlSerializer()) : '',
-      biography: biography ? biography.asHtml(linkResolver, htmlSerializer()) : '',
+      name: name ? name.asText(linkResolver) : '',
+      biography: biography ? biography.asHtml(linkResolver) : '',
     };
   });
 }
@@ -86,7 +112,7 @@ export function processAbout(about) {
   const content = about.results[0].getStructuredText('about.content');
   return {
     heading: heading ? heading.asText() : '',
-    content: content ? content.asHtml(linkResolver, htmlSerializer()) : '',
+    content: content ? content.asHtml(linkResolver) : '',
   };
 }
 
@@ -95,7 +121,7 @@ export function processFooter(footer) {
   if (!Array.isArray(footer.results)) return '';
   if (footer.results.length === 0) return '';
   const description = footer.results[0].getStructuredText('footer.footer-description');
-  return description ? description.asHtml(linkResolver, htmlSerializer()) : '';
+  return description ? description.asHtml(linkResolver) : '';
 }
 
 export function processSchedule(schedule) {
@@ -108,7 +134,7 @@ export function processSchedule(schedule) {
   return {
     title: title ? title.asText() : '',
     subtitle: subtitle ? subtitle.asText() : '',
-    description: description ? description.asHtml(linkResolver, htmlSerializer()) : '',
+    description: description ? description.asHtml(linkResolver) : '',
   };
 }
 
@@ -120,6 +146,6 @@ export function processLiveDialogues(live) {
   const content = live.results[0].getStructuredText('live-discussions.content');
   return {
     title: title ? title.asText() : '',
-    content: content ? content.asHtml(linkResolver, htmlSerializer()) : '',
+    content: content ? content.asHtml(linkResolver) : '',
   };
 }

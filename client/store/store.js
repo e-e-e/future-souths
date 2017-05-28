@@ -40,14 +40,14 @@ const queries = [
     name: 'dialogues',
     action: 'setDialogues',
     query: prismic.Predicates.at('document.type', 'dialogue'),
-    opts: {},
+    opts: { orderings: '[my.dialogue.time]' },
     transform: processDialogues,
   },
   {
     name: 'contributors',
     action: 'setContributors',
     query: prismic.Predicates.at('document.type', 'contributor'),
-    opts: {},
+    opts: { orderings: '[my.contributor.name]' },
     transform: processContributors,
   },
 ];
@@ -78,6 +78,9 @@ const store = new Vuex.Store({
     },
     setLiveDialogues: (state, payload) => {
       state.live = payload;
+    },
+    setFocused: (state, payload) => {
+      state.focused = payload;
     },
     setError: (state, payload) => {
       state.error = payload;

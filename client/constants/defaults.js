@@ -8,6 +8,7 @@ export const INITIAL_STATE = { // eslint-disable-line
   footer: null,
   schedule: null,
   live: null,
+  focused: -1,
   error: null,
 };
 

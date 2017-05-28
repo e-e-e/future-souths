@@ -58,12 +58,14 @@ export default {
       // this is a hacky violation of state
       this.article.footnotes[i].relativeTo = el.id;
       el.addEventListener('mouseover', this.revealFootnote(i));
+      el.addEventListener('touchstart', this.revealFootnote(i));
     }
   },
   beforeDestroy() {
     const elements = this.$el.getElementsByClassName('footnote');
     for (let i = 0; i < elements.length; i++) {
       elements[i].removeEventListener('mouseover', this.revealFootnote(i));
+      elements[i].addEventListener('touchstart', this.revealFootnote(i));
     }
   },
   data() {

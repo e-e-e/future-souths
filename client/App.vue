@@ -42,7 +42,6 @@
           <section v-if="live">
             <h1>{{live && live.title}}</h1>
             <div v-html="live.content"/>
-            <!-- need to include iframe -->
           </section>
         </div>
       </main>
@@ -68,7 +67,6 @@
     </div>
   </div>
 </template>
-
 <script>
 import { mapState, mapActions } from 'vuex';
 import loader from 'components/loader';

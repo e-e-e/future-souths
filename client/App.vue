@@ -55,12 +55,18 @@
           </section>
         </div>
         <div class="column right">
-          <section id="Others">
+          <section>
             <h2 class="marginalia">Colophon</h2>
-            <p>Design: <a href="http://ellasutherland.design/" target="__blank">Ella Sutherland</a><br>
-            Programming: <a href="https://github.com/e-e-e" target="__blank">Benjamin Forster</a><br>
-            Source code: <a href="https://github.com/e-e-e/future-souths" target="__blank">Github</a><br>
-            Opensource content: <a href="https://future-souths.prismic.io/api" target="__blank">prismic.io</a></p>
+            <div id="Others">
+              <div>
+                <p>Design: <a href="http://ellasutherland.design/" target="__blank">Ella Sutherland</a><br>
+              Programming: <a href="https://github.com/e-e-e" target="__blank">Benjamin Forster</a></p>
+              </div>
+              <div>
+                <p>Source code: <a href="https://github.com/e-e-e/future-souths" target="__blank">Github</a><br>
+              Content: <a href="https://future-souths.prismic.io/api" target="__blank">prismic.io</a></p>
+              </div>
+            </div>
           </section>
         </div>
       </footer>

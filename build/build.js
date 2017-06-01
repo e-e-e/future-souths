@@ -24,6 +24,7 @@ const assetsPath = path.join(config.build.assetsRoot, config.build.assetsSubDire
 shelljs.rm('-rf', assetsPath);
 shelljs.mkdir('-p', assetsPath);
 shelljs.cp('-R', 'static/*', assetsPath);
+shelljs.cp('404.html', config.build.assetsRoot);
 
 webpack(webpackConfig, (err, stats) => {
   spinner.stop();

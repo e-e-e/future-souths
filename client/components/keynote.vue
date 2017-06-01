@@ -1,7 +1,7 @@
 <template>
   <section class="dialogue">
     <div class="displayDate">
-      <div class="marginalia">{{time(article.time)}}</div>
+      <div class="marginalia-block">{{time(article.time)}}</div>
       <div>{{date(article.time)}}</div>
     </div>
 
@@ -52,7 +52,6 @@ export default {
   },
   mounted() {
     this.footnotes = this.$el.getElementsByClassName('footnote');
-    console.log(this.footnotes);
     for (let i = 0; i < this.footnotes.length; i++) {
       const el = this.footnotes[i];
       // this is a hacky violation of state
@@ -79,7 +78,6 @@ export default {
     date: t => `Dialogue: ${dateHeader(t)}`,
     revealFootnote(index) {
       return () => {
-        console.log(index);
         this.article.footnotes.map((f, i) => {
           f.show = (i === index);
           return f;
@@ -124,6 +122,9 @@ export default {
   }
 
   .displayDate {
+    font-size: 0.8rem;
+    letter-spacing: 0.1rem;
+    font-family: $feature-font;
     text-transform: uppercase;
   }
 

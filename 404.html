@@ -4,16 +4,87 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Future Souths</title>
+    <style type="text/css">
+
+      @font-face {
+        font-family: 'National';
+        src: url('/static/fonts/NationalWeb-Regular.eot'); /* IE9 Compat Modes */
+        src: url('/static/fonts/NationalWeb-Regular.eot?#iefix') format('embedded-opentype'),
+             url('/static/fonts/NationalWeb-Regular.woff2') format('woff2'),
+             url('/static/fonts/NationalWeb-Regular.woff') format('woff');
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: 'TiemposText';
+        src: url('/static/fonts/TiemposTextWeb-Medium.eot'); /* IE9 Compat Modes */
+        src: url('/static/fonts/TiemposTextWeb-Medium.eot?#iefix') format('embedded-opentype'),
+             url('/static/fonts/TiemposTextWeb-Medium.woff2') format('woff2'),
+             url('/static/fonts/TiemposTextWeb-Medium.woff') format('woff');
+        font-style: normal;
+      }
+
+      body, html {
+        margin: 0;
+        padding: 0;
+        text-rendering: optimizeLegibility;
+        font-size: 15px;
+        width: 100%;
+        height: 100%;
+      }
+      .html-error-page {
+        background-color: #2828ff;
+        width: 100%;
+        height: 100%;
+      }
+
+      #html-error-page {
+        height: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        box-sizing: border-box;
+        justify-content: flex-start;
+        vertical-align: middle;
+        align-content: center;
+        align-items: center;
+        padding: 5em;
+      }
+
+      h1 {
+        font-family: 'TiemposText', serif;
+        font-size: 2rem;
+        color: white;
+      }
+
+      a {
+        font-family: 'National', sans-serif;
+        color: white;
+        text-decoration: underline;
+      }
+
+      a:hover {
+        color: white;
+        text-decoration: none;
+      }
+
+      #html-error-page > div {
+        flex: 1;
+        padding: 1em;
+      }
+    </style>
   </head>
-  <body>
-    <header id='404'>
-      <div class="column left">
+  <body class="html-error-page">
+    <main id='html-error-page'>
+      <div class="first">
         <h1>404<h1>
       </div>
-      <div class="column left">
-        <h1>Page not found<h1>
+      <div class="second">
+        <h1>Page not found</h1>
         <a href="/">Go back home</a>
       </div>
-    </header>
+    </main>
+    <!-- <div id="app"></div> -->
+    <!-- built files will be auto injected -->
   </body>
 </html>

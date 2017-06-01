@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a v-on:click="toggle">{{name}}</a>
+    <a class="name" v-on:click="toggle">{{name}}</a>
     <div v-show="expanded" v-html="biography"/>
   </div>
 </template>
@@ -31,3 +31,9 @@ export default {
   },
 };
 </script>
+<style lang="scss">
+  .name {
+    display: block;
+    margin-bottom: 1rem;
+  }
+</style>

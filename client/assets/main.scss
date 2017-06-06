@@ -165,10 +165,10 @@ footer {
 @media (max-width: #{$tablet-width}) {
   main {
     .column.left {
-      order: 2 !important;
+      // order: 2 !important;
     }
     .column.right {
-      order: 1 !important;
+      // order: 1 !important;
     }
   }
 }

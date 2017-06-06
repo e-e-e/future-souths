@@ -14,8 +14,8 @@
     </h2>
     <div :class="[styles.body, 'article-body']" v-html="article.image"/>
     <div v-if="article.caption" v-html="article.caption" class="caption" />
-    <a v-if="!focus" v-on:click="setFocused(index)">Continue Reading...</a>
     <div v-show="focus" :class="[styles.body, 'article-body']" v-html="article.blurb" />
+    <a v-on:click="toggle()">{{focus ? 'Collapse' : 'Continue Reading...'}}</a>
     <footnote v-show="focus" v-for="(footnote, index) in article.footnotes"
       :key="index"
       :index="index"
@@ -27,7 +27,6 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
 import { time, dateHeader } from 'lib/utils';
 import footnote from 'components/footnote';
 
@@ -40,10 +39,6 @@ export default {
     article: {
       type: Object,
       required: true,
-    },
-    focus: {
-      type: Boolean,
-      default: false,
     },
     index: {
       type: Number,
@@ -69,11 +64,14 @@ export default {
   },
   data() {
     return {
+      focus: false,
       footnotes: [],
     };
   },
   methods: {
-    ...mapMutations(['setFocused']),
+    toggle() {
+      this.focus = !this.focus;
+    },
     time,
     date: t => `Dialogue: ${dateHeader(t)}`,
     revealFootnote(index) {

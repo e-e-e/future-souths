@@ -10,7 +10,7 @@
           <h2>Aesthetics and Vocabularies<br>of the Global Souths</h2>
           <nav>
             <a href="mailto:info@futuresouths.org">Contact</a>
-            <a href="https://www.facebook.com/futuresouths/" target="__blank">Follow</a>
+            <!-- <a href="https://www.facebook.com/futuresouths/" target="__blank">Follow</a> -->
           </nav>
         </div>
       </header>
@@ -23,7 +23,7 @@
             :description="schedule.description"
             :dialogues="dialogues"
           />
-          <keynote v-for="(dialogue, index) in dialogues" :article="dialogue" :index="index" :focus="index===focused"/>
+          <keynote v-for="(dialogue, index) in dialogues" :article="dialogue" :index="index"/>
         </div>
 
         <div class="column left">
@@ -100,7 +100,6 @@ export default {
       'contributors',
       'live',
       'schedule',
-      'focused',
     ]),
   },
   methods: {

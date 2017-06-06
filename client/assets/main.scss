@@ -208,6 +208,11 @@ footer {
   padding-top: 1em;
   overflow: visible;
   font-size: 1rem;
+
+  p {
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
 }
 
 .marginalia-block {

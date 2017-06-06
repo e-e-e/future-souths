@@ -9,9 +9,9 @@
     <div class="marginalia-block">
       <h2 class="top">{{article.author}}</h2>
     </div>
-    <h2 class="marginalia black">
-      <span v-for="participant in article.participants">{{participant}}<br></span>
-    </h2>
+    <div class="marginalia black">
+      <p v-for="participant in article.participants">{{participant}}</p>
+    </div>
     <div :class="[styles.body, 'article-body']" v-html="article.image"/>
     <div v-if="article.caption" v-html="article.caption" class="caption" />
     <div v-show="focus" :class="[styles.body, 'article-body']" v-html="article.blurb" />

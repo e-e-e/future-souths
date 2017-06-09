@@ -60,6 +60,15 @@ export default {
   margin: 0;
   overflow: visible;
   font-size: 0.8rem;
+
+  > div {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    hyphens: auto;
+  }
 }
 
 h2 {

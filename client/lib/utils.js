@@ -15,7 +15,8 @@ export const dateHeader = (t) => {
 export const time = (t) => {
   if (!t) return '';
   const minutes = t.getMinutes();
-  return `${t.getHours() + 1}:${minutes}${minutes < 10 ? '0' : ''}`;
+  const hours = t.getHours();
+  return `${hours < 10 ? '0' : ''}${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
 };
 
 function linkResolver(doc) {

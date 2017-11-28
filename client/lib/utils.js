@@ -72,11 +72,15 @@ export function processDialogues(dialogues) {
       author: author ? author.asText() : 'Anonymous',
       time: new Date(dialogueTime),
       footnotes: footnotes ? footnotes.toArray()
-        .map(footnote => ({
-          content: footnote.getStructuredText('footnote').asHtml(),
-          relativeTo: undefined,
-          show: false,
-        }))
+        .map((footnote) => {
+          const note = footnote.getStructuredText('footnote');
+          return note
+            ? {
+              content: note.asHtml(),
+              relativeTo: undefined,
+              show: false,
+            } : undefined;
+        })
         .filter(p => !!p) : [],
       participants: participantsGroup ? participantsGroup.toArray()
         .map((el) => {
